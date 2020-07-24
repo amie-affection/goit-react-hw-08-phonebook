@@ -1,22 +1,45 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import styles from "./Phonebook.module.css";
-import { CSSTransition } from "react-transition-group";
+import contactsOperations from "../redux/contacts/contactsOperations";
 
 class Phonebook extends Component {
+  state = {
+    contactName: "",
+    number: "",
+  };
+
+  handleChange = ({ target }) => {
+    const { name, value } = target;
+    this.setState({ [name]: value });
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { contactName, number } = this.state;
+    const { addContact } = this.props;
+
+    this.setState({
+      contactName: "",
+      number: "",
+    });
+    addContact(contactName, number);
+  };
+
   render() {
     // console.log(this.props);
+    const { contactName, number } = this.state;
+
     return (
-      <form onSubmit={this.props.onSubmit} style={{ marginLeft: "30px" }}>
-        <CSSTransition>
-          <h2>Phonebook</h2>
-        </CSSTransition>
+      <form onSubmit={this.handleSubmit} style={{ marginLeft: "30px" }}>
+        <h2 className={styles.title} >Phonebook</h2>
 
         <input
           className={styles.inputName}
           type="text"
-          name="name"
-          value={this.props.name}
-          onChange={this.props.onChange}
+          name="contactName"
+          value={contactName}
+          onChange={this.handleChange}
           placeholder="Enter name..."
           required
         ></input>
@@ -25,16 +48,21 @@ class Phonebook extends Component {
           className={styles.inputNumber}
           type="tel"
           name="number"
-          value={this.props.number}
-          onChange={this.props.onChange}
+          value={number}
+          onChange={this.handleChange}
           placeholder="Number..."
           required
         ></input>
 
-        <button type="submit">Add contact</button>
+        <button type="submit" className={styles.btn}>Add contact</button>
       </form>
     );
   }
 }
 
-export default Phonebook;
+const mapDispatchToProps = (dispatch) => ({
+  addContact: (name, number) =>
+    dispatch(contactsOperations.addContactOperations(name, number)),
+});
+
+export default connect(null, mapDispatchToProps)(Phonebook);

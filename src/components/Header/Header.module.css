@@ -1,0 +1,20 @@
+.pageList {
+  font-size: 20px;
+  list-style: none;
+  padding-left: 30px;
+}
+
+.pageListItem {
+  margin-bottom: 15px;
+}
+
+.pageList a {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: black;
+}
+
+.active {
+  background-color: salmon;
+  color: white;
+}
