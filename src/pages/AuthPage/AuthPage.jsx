@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 import authOperations from "../../redux/auth/authOperations";
+// import Phonebook from '../../phonebook/Phonebook';
 import styles from "./AuthPage.module.css";
 
-const AuthPage = () => {
+const AuthPage = ({ isShow }) => {
   const dispatch = useDispatch();
+  const makeToggle = () => {};
+  const toggle = makeToggle();
 
   const [email, setEmail] = useState("");
   const handleChange = ({ target }) => setEmail(target.value);
@@ -35,11 +38,25 @@ const AuthPage = () => {
         placeholder="Enter your password"
         className={styles.formInput}
       />
-      <button type="button" className={styles.btn}>
+      <button type="button" className={styles.btn} onClick={toggle}>
         Log In
       </button>
+
+      {/* {isShow && <Phonebook />} */}
     </form>
   );
 };
 
-export default AuthPage;
+const mapStateToProps = (state) => {
+  return {
+    // isShow: state.authRoot.token,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    makeToggle: () => dispatch({ type: "auth/IS_SHOW" }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthPage);

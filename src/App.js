@@ -6,6 +6,8 @@ import withTheme from "./hoc/withTheme";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import Header from "./components/Header/Header";
+import UserPage from "./pages/UserPage/UserPage";
+import PrivateRoute from "./services/PrivateRoute";
 
 class App extends Component {
   state = {
@@ -43,8 +45,10 @@ class App extends Component {
 
         <Switch>
           <Route exact path="/" component={AuthPage} />
+          <PrivateRoute path="/userPage" component={UserPage} />
           <Route path="/registerPage" component={RegisterPage} />
         </Switch>
+
         <div style={{ color: fontColor, background: bodybg }}>
           <button
             type="submit"
