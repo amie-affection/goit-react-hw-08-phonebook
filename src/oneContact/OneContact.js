@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import contactsOperations from "../redux/contacts/contactsOperations";
 import styles from "./OneContact.module.css";
 
-const OneContact = ({ contact: { id, name, number }, deleteContact }) => {
+const OneContact = ({ contact: { name, number }, deleteContact }) => {
   return (
     <li className={styles.oneContact}>
       <span>{name}: </span>

@@ -1,29 +1,60 @@
-import { combineReducers } from "redux";
+import authType from "./authType";
 
-const tokenReducer = (state = null, action) => {
+const initialAuthState = {
+  name: "",
+  isAuth: false,
+  token: "",
+  isLoading: false,
+  error: "",
+};
+
+const authReducer = (state = initialAuthState, action) => {
   switch (action.type) {
+    case "auth/LOADING_START":
+      return { ...state, isLoading: true };
+
+    case "auth/LOADING_END":
+      return { ...state, isLoading: false };
+
+    case "auth/GET_USER_SUCCESS":
+      return {
+        ...state,
+        name: action.payload.name,
+        isAuth: true,
+      };
+
+    case "auth/GET_USER_FAILURE":
+      console.log(action.payload);
+      return { ...state, error: action.payload.error };
+
     case "auth/LOGIN_SUCCESS":
-      return action.payload.token;
+      return {
+        ...state,
+        name: action.payload.user.name,
+        token: action.payload.token,
+        isAuth: true,
+      };
 
-    case "auth/LOGOUT_SUCCESS":
-      return null;
+    case "auth/LOGIN_FAILURE":
+      return { ...state, error: action.payload.error };
+
+    case "auth/REGISTER_SUCCESS":
+      return {
+        ...state,
+        name: action.payload.user.name,
+        token: action.payload.token,
+        isAuth: true,
+      };
+
+    case "auth/REGISTER_FAILURE":
+      return { ...state, error: action.payload.error };
+
+    case authType.LOGOUT_SUCCESS:
+      return initialAuthState;
 
     default:
       return state;
   }
 };
 
-const isShowReducer = (state = true, action) => {
-  switch (action.type) {
-    case "auth/IS_SHOW":
-      return !state;
-
-    default:
-      return state;
-  }
-};
-
-export default combineReducers({
-  token: tokenReducer,
-  isShow: isShowReducer,
-});
+export default authReducer;

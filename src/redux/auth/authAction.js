@@ -1,31 +1,48 @@
 import authType from "./authType";
 
-/* LOGIN */
-const loginStart = () => ({
-  type: authType.LOGIN_START,
+/* LOADER */
+
+const loadingStart = () => ({
+  type: authType.LOADING_START,
 });
 
-const loginSuccess = () => ({
+const loadingEnd = () => ({
+  type: authType.LOADING_END,
+});
+
+/* GET CURRENT USER */
+
+const getCurrentUserSuccess = (data) => ({
+  type: authType.GET_USER_SUCCESS,
+
+  payload: data,
+});
+
+const getCurrentUserFailure = (error) => ({
+  type: authType.GET_USER_FAILURE,
+  payload: error,
+});
+
+/* LOGIN */
+
+const loginSuccess = (data) => ({
   type: authType.LOGIN_SUCCESS,
 
-  payload: {},
+  payload: data,
 });
 
 const loginFailure = (error) => ({
   type: authType.LOGIN_FAILURE,
 
-  payload: { error },
+  payload: error,
 });
 
 /* REGISTER */
-const registerStart = () => ({
-  type: authType.REGISTER_START,
-});
 
-const registerSuccess = () => ({
+const registerSuccess = (data) => ({
   type: authType.REGISTER_SUCCESS,
 
-  payload: {},
+  payload: data,
 });
 
 const registerFailure = (error) => ({
@@ -35,14 +52,9 @@ const registerFailure = (error) => ({
 });
 
 /* LOGOUT */
-const logoutStart = () => ({
-  type: authType.LOGOUT_START,
-});
 
-const logoutSuccess = (idContactDelete) => ({
+const logoutSuccess = () => ({
   type: authType.LOGOUT_SUCCESS,
-
-  payload: { id: idContactDelete },
 });
 
 const logoutFailure = (error) => ({
@@ -52,15 +64,18 @@ const logoutFailure = (error) => ({
 });
 
 export default {
-  loginStart,
+  loadingStart,
+  loadingEnd,
+
+  getCurrentUserSuccess,
+  getCurrentUserFailure,
+
   loginSuccess,
   loginFailure,
 
-  registerStart,
   registerSuccess,
   registerFailure,
 
-  logoutStart,
   logoutSuccess,
   logoutFailure,
 };

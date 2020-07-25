@@ -7,6 +7,7 @@ class Phonebook extends Component {
   state = {
     contactName: "",
     number: "",
+    filter: "",
   };
 
   handleChange = ({ target }) => {
@@ -32,7 +33,7 @@ class Phonebook extends Component {
 
     return (
       <form onSubmit={this.handleSubmit} style={{ marginLeft: "30px" }}>
-        <h2 className={styles.title} >Phonebook</h2>
+        <h2 className={styles.title}>Phonebook</h2>
 
         <input
           className={styles.inputName}
@@ -54,7 +55,9 @@ class Phonebook extends Component {
           required
         ></input>
 
-        <button type="submit" className={styles.btn}>Add contact</button>
+        <button type="submit" className={styles.btn}>
+          Add contact
+        </button>
       </form>
     );
   }

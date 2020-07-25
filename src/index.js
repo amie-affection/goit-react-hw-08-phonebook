@@ -1,15 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { PersistGate } from "redux-persist/integration/react";
 import App from "./App";
 import ThemeContext from "./themeContext/ThemeContext";
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import { store, persistor } from "./redux/store";
 
 ReactDOM.render(
   <Provider store={store}>
-    <ThemeContext>
-      <App />
-    </ThemeContext>
+    <PersistGate loading={null} persistor={persistor}>
+      <ThemeContext>
+        <App />
+      </ThemeContext>
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );

@@ -1,52 +1,32 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Phonebook from "./phonebook/Phonebook";
-import ContactList from "./contactList/ContactList";
+import { connect } from "react-redux";
 import withTheme from "./hoc/withTheme";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import Header from "./components/Header/Header";
-import UserPage from "./pages/UserPage/UserPage";
+import PhonebookPage from "./pages/PhonebookPage/PhonebookPage";
 import PrivateRoute from "./services/PrivateRoute";
+import authOperations from "./redux/auth/authOperations";
 
 class App extends Component {
-  state = {
-    filter: "",
-  };
-
   componentDidMount() {
-    const contactStorage = localStorage.getItem("contacts");
-    if (contactStorage) {
-      this.setState({ contacts: JSON.parse(contactStorage) });
-    }
+    this.props.getUser();
   }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.contacts !== this.state.contacts) {
-      localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
-    }
-  }
-
-  filterByName = () => {};
-
-  deleteContact = (id) => {};
 
   render() {
-    const filterContact = this.filterByName();
-    // console.log(filterContact);
-    // console.log(this.props);
     const {
       themeConfig: { fontColor, bodybg },
     } = this.props;
-    const { filter } = this.state;
+
     return (
       <BrowserRouter>
         <Header />
 
         <Switch>
           <Route exact path="/" component={AuthPage} />
-          <PrivateRoute path="/userPage" component={UserPage} />
-          <Route path="/registerPage" component={RegisterPage} />
+          <PrivateRoute path="/phonebook" component={PhonebookPage} />
+          <Route path="/registration" component={RegisterPage} />
         </Switch>
 
         <div style={{ color: fontColor, background: bodybg }}>
@@ -67,13 +47,14 @@ class App extends Component {
           >
             Change theme
           </button>
-          <Phonebook name={this.state.name} number={this.state.number} />
-
-          <ContactList filter={filter} deleteContact={this.deleteContact} />
         </div>
       </BrowserRouter>
     );
   }
 }
 
-export default withTheme(App);
+const mapDispatchToProps = (dispatch) => ({
+  getUser: () => dispatch(authOperations.getCurrentUser()),
+});
+
+export default connect(null, mapDispatchToProps)(withTheme(App));

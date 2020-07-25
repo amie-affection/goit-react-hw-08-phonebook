@@ -1,45 +1,47 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
+import UserMenu from "../UserMenu/UserMenu";
 import styles from "./Header.module.css";
 
-const Header = ({ token }) => {
+const Header = ({ isAuth }) => {
   return (
     <header>
       <nav>
         <ul className={styles.pageList}>
-          {!token && (
+          {!isAuth && (
             <li className={styles.pageListItem}>
               <NavLink exact to="/" activeClassName={styles.active}>
-                Authorization Page
+                Login
               </NavLink>
             </li>
           )}
 
-          {token && (
+          {!isAuth && (
             <li className={styles.pageListItem}>
-              <NavLink to="/userPage" activeClassName={styles.active}>
-                User Page
+              <NavLink to="/registration" activeClassName={styles.active}>
+                Registration
               </NavLink>
             </li>
           )}
 
-          {!token && (
+          {isAuth && (
             <li className={styles.pageListItem}>
-              <NavLink to="/registerPage" activeClassName={styles.active}>
-                Register Page
+              <NavLink to="/phonebook" activeClassName={styles.active}>
+                Phonebook
               </NavLink>
             </li>
           )}
         </ul>
       </nav>
+      <UserMenu />
     </header>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    // token: state.authRoot.isShow,
+    isAuth: state.authRoot.isAuth,
   };
 };
 

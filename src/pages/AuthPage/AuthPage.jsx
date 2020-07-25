@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, connect } from "react-redux";
 import authOperations from "../../redux/auth/authOperations";
-// import Phonebook from '../../phonebook/Phonebook';
 import styles from "./AuthPage.module.css";
 
-const AuthPage = ({ isShow }) => {
+const AuthPage = () => {
   const dispatch = useDispatch();
-  const makeToggle = () => {};
-  const toggle = makeToggle();
 
   const [email, setEmail] = useState("");
   const handleChange = ({ target }) => setEmail(target.value);
@@ -38,19 +35,11 @@ const AuthPage = ({ isShow }) => {
         placeholder="Enter your password"
         className={styles.formInput}
       />
-      <button type="button" className={styles.btn} onClick={toggle}>
+      <button type="submit" className={styles.btn}>
         Log In
       </button>
-
-      {/* {isShow && <Phonebook />} */}
     </form>
   );
-};
-
-const mapStateToProps = (state) => {
-  return {
-    // isShow: state.authRoot.token,
-  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -59,4 +48,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthPage);
+export default connect(null, mapDispatchToProps)(AuthPage);

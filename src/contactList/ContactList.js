@@ -29,7 +29,7 @@ class ContactList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("state", state);
+  // console.log("state", state);
   return {
     contactList: contactList(state),
   };
