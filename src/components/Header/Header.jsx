@@ -10,16 +10,16 @@ const Header = ({ isAuth }) => {
         <ul className={styles.pageList}>
           {!isAuth && (
             <li className={styles.pageListItem}>
-              <NavLink exact to="/" activeClassName={styles.active}>
-                Login
+              <NavLink to="/registration" activeClassName={styles.active}>
+                Registration
               </NavLink>
             </li>
           )}
 
           {!isAuth && (
             <li className={styles.pageListItem}>
-              <NavLink to="/registration" activeClassName={styles.active}>
-                Registration
+              <NavLink exact to="/" activeClassName={styles.active}>
+                Log In
               </NavLink>
             </li>
           )}
@@ -33,7 +33,6 @@ const Header = ({ isAuth }) => {
           )}
         </ul>
       </nav>
-      
     </header>
   );
 };
