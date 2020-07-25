@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import UserMenu from "../UserMenu/UserMenu";
 import styles from "./Header.module.css";
 
 const Header = ({ isAuth }) => {
@@ -34,7 +33,7 @@ const Header = ({ isAuth }) => {
           )}
         </ul>
       </nav>
-      <UserMenu />
+      
     </header>
   );
 };

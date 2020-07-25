@@ -21,19 +21,11 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-        <Header />
-
-        <Switch>
-          <Route exact path="/" component={AuthPage} />
-          <PrivateRoute path="/phonebook" component={PhonebookPage} />
-          <Route path="/registration" component={RegisterPage} />
-        </Switch>
-
         <div style={{ color: fontColor, background: bodybg }}>
           <button
             type="submit"
             style={{
-              marginLeft: "30px",
+              marginLeft: "20px",
               marginTop: "20px",
               borderColor: "white",
               height: "35px",
@@ -48,6 +40,14 @@ class App extends Component {
             Change theme
           </button>
         </div>
+
+        <Header />
+
+        <Switch>
+          <Route exact path="/" component={AuthPage} />
+          <PrivateRoute path="/phonebook" component={PhonebookPage} />
+          <Route path="/registration" component={RegisterPage} />
+        </Switch>
       </BrowserRouter>
     );
   }
