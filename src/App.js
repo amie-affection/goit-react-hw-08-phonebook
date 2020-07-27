@@ -21,7 +21,9 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-        <div style={{ color: fontColor, background: bodybg }}>
+        <div
+          style={{ color: fontColor, background: bodybg, paddingBottom: "20px" }}
+        >
           <button
             type="submit"
             style={{
@@ -39,15 +41,14 @@ class App extends Component {
           >
             Change theme
           </button>
+          <Header />
+
+          <Switch>
+            <Route exact path="/" component={AuthPage} />
+            <PrivateRoute path="/phonebook" component={PhonebookPage} />
+            <Route path="/registration" component={RegisterPage} />
+          </Switch>
         </div>
-
-        <Header />
-
-        <Switch>
-          <Route exact path="/" component={AuthPage} />
-          <PrivateRoute path="/phonebook" component={PhonebookPage} />
-          <Route path="/registration" component={RegisterPage} />
-        </Switch>
       </BrowserRouter>
     );
   }
